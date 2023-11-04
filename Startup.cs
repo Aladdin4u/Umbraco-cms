@@ -19,6 +19,37 @@ namespace MyProject
             _config = config ?? throw new ArgumentNullException(nameof(config));
         }
 
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+          Host.CreateDefaultBuilder(args)
+              .ConfigureLogging(x => x.ClearProviders())
+              .ConfigureAppConfiguration((ctx, builder) =>
+              {
+                  builder.AddJsonFile("appsettings.json", false, true);
+        
+                  var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                  Console.WriteLine("HostingEnvironmentName: '{0}'", enviroment);
+        
+                  builder.AddJsonFile($"appsettings.{enviroment}.json", true, true);
+                  
+                  builder.AddEnvironmentVariables();
+              })
+              .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
+        }public static IHostBuilder CreateHostBuilder(string[] args) =>
+          Host.CreateDefaultBuilder(args)
+              .ConfigureLogging(x => x.ClearProviders())
+              .ConfigureAppConfiguration((ctx, builder) =>
+              {
+                  builder.AddJsonFile("appsettings.json", false, true);
+        
+                  var enviroment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                  Console.WriteLine("HostingEnvironmentName: '{0}'", enviroment);
+        
+                  builder.AddJsonFile($"appsettings.{enviroment}.json", true, true);
+                  
+                  builder.AddEnvironmentVariables();
+              })
+              .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
+        }
         /// <summary>
         /// Configures the services.
         /// </summary>
