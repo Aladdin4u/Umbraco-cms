@@ -1,0 +1,9 @@
+services:
+
+  umbdata:
+    container_name: umbdata
+    build:
+      context: ./
+    ports:
+     - "1433:1433"
+     - "1434:1434"
