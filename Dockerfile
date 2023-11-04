@@ -10,6 +10,6 @@ WORKDIR /app
 EXPOSE 80
 ENV ASPNETCORE_URLS=http://+:80
 COPY --from=build /app/publish .
-COPY ./wwwroot/media .app/wwwroot/media
+COPY ./wwwroot ./wwwroot
 
 ENTRYPOINT ["dotnet", "MyProject.dll"]
