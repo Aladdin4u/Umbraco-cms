@@ -7,7 +7,9 @@ RUN dotnet publish "MyProject.csproj" -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
+RUN mkdir -p ~/wwwroot/media/
 EXPOSE 80
+EXPOSE 443
 ENV ASPNETCORE_URLS=http://+:80
 COPY --from=build /app/publish .
 
