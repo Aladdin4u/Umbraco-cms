@@ -9,6 +9,5 @@ RUN dotnet publish "MyProject.csproj" -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 COPY --from=build /app/publish .
-COPY ./app/wwwroot/media/ ./app/wwwroot/media/
 
 ENTRYPOINT ["dotnet", "MyProject.dll"]
