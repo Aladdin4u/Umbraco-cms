@@ -15,7 +15,7 @@ services:
   umbweb_backend:
     container_name: umbweb_backend
     build:
-      context: ./UmbWeb
+      context: ./
     volumes:
       - umb_media:/app/wwwroot/media
       - umb_logs:/app/umbraco/Logs
