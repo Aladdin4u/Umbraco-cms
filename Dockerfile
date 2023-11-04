@@ -8,6 +8,8 @@ RUN dotnet publish "MyProject.csproj" -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
+EXPOSE 80
+ENV ASPNETCORE_URLS=http://+:80
 COPY --from=build /app/publish .
 
 ENTRYPOINT ["dotnet", "MyProject.dll"]
