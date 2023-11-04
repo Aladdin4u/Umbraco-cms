@@ -2,8 +2,33 @@ services:
 
   umbdata:
     container_name: umbdata
-    build:
-      context: ./
+    image: mcr.microsoft.com/azure-sql-edge
     ports:
      - "1433:1433"
      - "1434:1434"
+    volumes:
+     - umb_database:/var/opt/mssql
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: your_strong_password
+
+  umbweb_backend:
+    container_name: umbweb_backend
+    build:
+      context: ./UmbWeb
+    volumes:
+      - umb_media:/app/wwwroot/media
+      - umb_logs:/app/umbraco/Logs
+    restart: always
+    environment:
+     - ASPNETCORE_ENVIRONMENT=Production
+    # This is the external port the website will be visible from : http://localhost:5080/
+    # The Umbraco URL is : http://localhost:5080/umbraco
+    ports:
+      - "5080:80"
+    depends_on:
+      - umbdata
+      
+volumes:
+  umb_database:
+      
